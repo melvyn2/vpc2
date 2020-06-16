@@ -8,6 +8,7 @@
 #include "baseprojectdatacollector.h"
 #include "tier1/utlstack.h"
 #include "projectgenerator_codelite.h"
+#include "projectgenerator_linux.h"
 
 static const char *k_pszBase_Makefile = "$(SRCROOT)/devtools/makefile_base_posix.mak";
 
@@ -1069,14 +1070,17 @@ public:
 		// Write all the non-config-specific stuff.
 		WriteNonConfigSpecificStuff(fp);
 
+		CSpecificConfig* pConfig0;
+		CSpecificConfig* pConfig1;
+
 		bool bReleaseDebugAreSame = CheckReleaseDebugConfigsAreSame();
 		if (bReleaseDebugAreSame)
 		{
 			// If the two configs are the same except for $PreprocessorDefinitions, then call
 			// WriteConfigSpecificStuff() once with both configs.
 			Assert(m_BaseConfigData.m_Configurations.Count() == 2);
-			CSpecificConfig *pConfig0 = m_BaseConfigData.m_Configurations[0];
-			CSpecificConfig *pConfig1 = m_BaseConfigData.m_Configurations[1];
+			pConfig0 = m_BaseConfigData.m_Configurations[0];
+			pConfig1 = m_BaseConfigData.m_Configurations[1];
 
 			// Make sure we always have "release" second (ie, the default case).
 			if (!V_stricmp(pConfig0->GetConfigName(), "release"))
@@ -1091,6 +1095,8 @@ public:
 		}
 		else
 		{
+			pConfig0 = m_BaseConfigData.m_Configurations[0];
+			pConfig1 = m_BaseConfigData.m_Configurations[1];
 			// Write each config out.
 			for (int i = m_BaseConfigData.m_Configurations.First(); i != m_BaseConfigData.m_Configurations.InvalidIndex(); i = m_BaseConfigData.m_Configurations.Next(i))
 			{
@@ -1102,6 +1108,19 @@ public:
 
 		fclose(fp);
 		Sys_CopyToMirror(pFilename);
+
+		/* For project specific generators. For now, we will test the vscode stuff */
+		char dir[512];
+		if(V_GetCurrentDirectory(dir, 512))
+		{
+			CLinuxProjectGenerator* generator = CLinuxProjectGenerator::GetGenerator("vscode");
+			if(!generator)
+			{
+				printf("UNABLE TO FIND GENERATOR vscode\n");
+				exit(1);
+			}
+			generator->Write(pConfig0, pConfig1, dir);
+		}
 	}
 
 	bool m_bForceLowerCaseFileName;

@@ -69,6 +69,8 @@ VPC_SRC:= \
 	../vpccrccheck/crccheck_shared.cpp \
 	projectgenerator_codelite.cpp \
 	solutiongenerator_codelite.cpp \
+	projectgenerator_linux.cpp \
+	projectgenerator_vscode.cpp \
 
 TIER0_SRC:= \
 	../../tier0/assert_dialog.cpp \
