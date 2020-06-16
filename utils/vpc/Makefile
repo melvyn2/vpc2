@@ -21,6 +21,8 @@ SRCROOT:=../..
 CC:=gcc
 CXX:=g++
 
+PREFIX?=/usr/local/
+
 ifeq ($(OS),Darwin)
 SDKROOT:=$(shell xcodebuild -sdk macosx -version Path)
 CC:=clang -m32
@@ -232,7 +234,10 @@ endif
 
 
 # Build rules
-all: $(OUTFILE) ../../../../devtools/bin/vpc$(EXE_POSTFIX)
+all: $(OUTFILE)
+
+install: $(OUTFILE)
+	cp $(OUTFILE) $(PREFIX)/bin 
 
 ../../../../devtools/bin/vpc$(EXE_POSTFIX) : $(OUTFILE)
 	cp "$(OUTFILE)" ../../../../devtools/bin/vpc$(EXE_POSTFIX)
