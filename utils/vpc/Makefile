@@ -239,7 +239,7 @@ endif
 all: $(OUTFILE)
 
 install: $(OUTFILE)
-	cp $(OUTFILE) $(PREFIX)/bin 
+	cp $(OUTFILE) $(PREFIX)/src/devtools/bin/vpc_linux 
 
 ../../../../devtools/bin/vpc$(EXE_POSTFIX) : $(OUTFILE)
 	cp "$(OUTFILE)" ../../../../devtools/bin/vpc$(EXE_POSTFIX)
