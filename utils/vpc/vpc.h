@@ -480,3 +480,10 @@ extern void					VPC_Config_SpewProperties( configKeyword_e keyword );
 extern bool					VPC_Config_IgnoreOption( const char *pPropertyName );
 
 extern void					VPC_FakeKeyword_SchemaFolder( class CBaseProjectDataCollector *pDataCollector );
+
+static bool					VPC_CheckMacro(const char* macro)
+{
+	for(int i = 0; i < g_pVPC->m_Macros.Count(); i++)
+		if(V_strcmp(macro, g_pVPC->m_Macros[i].name) == 0) return true;
+	return false;
+}

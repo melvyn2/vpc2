@@ -1113,13 +1113,17 @@ public:
 		char dir[512];
 		if(V_GetCurrentDirectory(dir, 512))
 		{
-			CLinuxProjectGenerator* generator = CLinuxProjectGenerator::GetGenerator("vscode");
-			if(!generator)
+			/* VSCode generator enabled? */
+			if(VPC_CheckMacro("VSCODE"))
 			{
-				printf("UNABLE TO FIND GENERATOR vscode\n");
-				exit(1);
+				CLinuxProjectGenerator* generator = CLinuxProjectGenerator::GetGenerator("vscode");
+				if(!generator)
+				{
+					printf("UNABLE TO FIND GENERATOR vscode\n");
+					exit(1);
+				}
+				generator->Write(pConfig0, pConfig1, dir);
 			}
-			generator->Write(pConfig0, pConfig1, dir);
 		}
 	}
 
