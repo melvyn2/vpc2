@@ -203,6 +203,8 @@ ifeq "$(STEAM_BRANCH)" "1"
 CFLAGS+= -DSTEAM
 endif
 
+CFLAGS+=-std=c++11
+
 
 ifeq "$(OS)" "Darwin"
 CFLAGS+=-I$(SDKROOT)/usr/include/malloc
