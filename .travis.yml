@@ -2,15 +2,23 @@ language: cpp
 compiler: gcc
 dist: xenial
 
-addons:
-        apt:
-                package:
-                        - gcc
-                        - g++
-                        - libc6-dev
-                        - libc6
-                        - gcc-multilib
-                        - g++-multilib
+jobs:
+        include:
+                - stage: build
+                  name: "Build for Linux-i386"
+                  os: linux
+                  dist: xenial
+                  addons:
+                          apt:
+                                  packages:
+                                          - gcc
+                                          - g++
+                                          - libc6-dev
+                                          - libc6
+                                          - gcc-multilib
+                                          - g++-multilib
 
-script:
-        - make
+                  script:
+                          - make clean
+                          - make
+
