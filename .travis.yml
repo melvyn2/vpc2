@@ -9,6 +9,8 @@ addons:
                         - g++
                         - libc6-dev
                         - libc6
+                        - gcc-multilib
+                        - g++-multilib
 
 script:
         - make
