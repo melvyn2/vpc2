@@ -23,7 +23,9 @@ class CLinuxProjectGenerator
 public:
 	explicit CLinuxProjectGenerator(const char* name);
 
-	virtual void Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder) = 0;
+	virtual void Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator) = 0;
 
 	static CLinuxProjectGenerator* GetGenerator(const char* name);
+
+	static void ExecuteGenerators(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* filder, CBaseProjectDataCollector* generator);
 };

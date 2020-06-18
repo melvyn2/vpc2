@@ -1112,19 +1112,7 @@ public:
 		/* For project specific generators. For now, we will test the vscode stuff */
 		char dir[512];
 		if(V_GetCurrentDirectory(dir, 512))
-		{
-			/* VSCode generator enabled? */
-			if(VPC_CheckMacro("VSCODE"))
-			{
-				CLinuxProjectGenerator* generator = CLinuxProjectGenerator::GetGenerator("vscode");
-				if(!generator)
-				{
-					printf("UNABLE TO FIND GENERATOR vscode\n");
-					exit(1);
-				}
-				generator->Write(pConfig0, pConfig1, dir);
-			}
-		}
+			CLinuxProjectGenerator::ExecuteGenerators(pConfig0, pConfig1, dir, this);
 	}
 
 	bool m_bForceLowerCaseFileName;

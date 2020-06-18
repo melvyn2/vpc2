@@ -71,6 +71,9 @@ VPC_SRC:= \
 	solutiongenerator_codelite.cpp \
 	projectgenerator_linux.cpp \
 	projectgenerator_vscode.cpp \
+	projectgenerator_cmake.cpp \
+	projectgenerator_clangdb.cpp \
+	solutiongenerator_linux.cpp \
 
 TIER0_SRC:= \
 	../../tier0/assert_dialog.cpp \

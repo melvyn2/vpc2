@@ -11,19 +11,28 @@ struct linux_project_generator_t
 	CLinuxProjectGenerator* generator;
 };
 
-CUtlVector<linux_project_generator_t> g_Generators;
+CUtlVector<linux_project_generator_t>* g_pGenerators;
 
 CLinuxProjectGenerator::CLinuxProjectGenerator(const char* name)
 {
-	g_Generators.AddToTail(linux_project_generator_t {name, this});
+	if(!g_pGenerators) g_pGenerators = new CUtlVector<linux_project_generator_t>();
+	g_pGenerators->AddToTail(linux_project_generator_t {name, this});
 }
 
 CLinuxProjectGenerator* CLinuxProjectGenerator::GetGenerator(const char* name)
 {
-	for(int i = 0; i < g_Generators.Count(); i++)
+	for(int i = 0; i < g_pGenerators->Count(); i++)
 	{
-		auto gen = g_Generators[i];
+		auto gen = (*g_pGenerators)[i];
 		if(strcmp(gen.name, name) == 0) return gen.generator;
 	}
 	return nullptr;
+}
+
+void CLinuxProjectGenerator::ExecuteGenerators(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator)
+{
+	for(int i = 0; i < g_pGenerators->Count(); i++)
+	{
+		(*g_pGenerators)[i].generator->Write(pRelease, pDebug, folder, generator);
+	}
 }

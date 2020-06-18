@@ -53,7 +53,7 @@ public:
 	}
 
 
-	virtual void Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder);
+	virtual void Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator);
 
 	void WritePropertiesForConfig(CSpecificConfig* config, FILE* fs);
 };
@@ -61,7 +61,7 @@ public:
 
 static CVSCodeGenerator g_VSCodeGenerator;
 
-void CVSCodeGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder)
+void CVSCodeGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator)
 {
 	Assert(pRelease);
 	Assert(pDebug);

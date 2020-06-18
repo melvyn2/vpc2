@@ -484,6 +484,8 @@ extern void					VPC_FakeKeyword_SchemaFolder( class CBaseProjectDataCollector *p
 static bool					VPC_CheckMacro(const char* macro)
 {
 	for(int i = 0; i < g_pVPC->m_Macros.Count(); i++)
-		if(V_strcmp(macro, g_pVPC->m_Macros[i].name) == 0) return true;
+	{
+		if(V_strcmp(macro, g_pVPC->m_Macros[i].name.String()) == 0) return true;
+	}
 	return false;
 }

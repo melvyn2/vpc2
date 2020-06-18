@@ -6,7 +6,7 @@
 
 #include "vpc.h"
 #include "dependencies.h"
-
+#include "solutiongenerator_linux.h"
 
 extern void V_MakeAbsoluteCygwinPath( char *pOut, int outLen, const char *pRelativePath );
 
@@ -295,6 +295,9 @@ public:
 
 
 				fclose( fp );
+
+		/* Execute all solution generators */
+		CLinuxSolutionGenerator::ExecuteSolutionGenerators(pSolutionFilename, projects);		
 	}
 
 	void ResolveAdditionalProjectDependencies(
