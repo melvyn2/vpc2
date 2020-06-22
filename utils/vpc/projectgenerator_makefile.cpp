@@ -262,8 +262,22 @@ public:
 				// Write a CodeLite project as well.
 				char sFilename[MAX_PATH];
 				V_StripExtension(g_pVPC->GetOutputFilename(), sFilename, sizeof(sFilename));
+
+				CSpecificConfig* pDebug;
+				CSpecificConfig* pRelease;
+				/* Determine the release and debug configs */
+				if(strcmp(this->m_BaseConfigData.m_Configurations[0]->GetConfigName(), "Debug") == 0)
+				{
+					pDebug = this->m_BaseConfigData.m_Configurations[0];
+					pRelease = this->m_BaseConfigData.m_Configurations[1];
+				}
+				else
+				{
+					pDebug = this->m_BaseConfigData.m_Configurations[1];
+					pRelease = this->m_BaseConfigData.m_Configurations[0];
+				}
 				CProjectGenerator_CodeLite codeLiteGenerator;
-				codeLiteGenerator.GenerateCodeLiteProject(this, sFilename, pMakefileFilename);
+				codeLiteGenerator.GenerateCodeLiteProject(this, sFilename, pMakefileFilename, pDebug, pRelease);
 			}
 			Term();
 		}

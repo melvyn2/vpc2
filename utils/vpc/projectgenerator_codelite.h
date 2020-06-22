@@ -17,7 +17,7 @@ class CProjectGenerator_CodeLite
 {
 public:
 
-	void GenerateCodeLiteProject( CBaseProjectDataCollector *pCollector, const char *pOutFilename, const char *pMakefileFilename );
+	void GenerateCodeLiteProject( CBaseProjectDataCollector *pCollector, const char *pOutFilename, const char *pMakefileFilename, CSpecificConfig* pDebug, CSpecificConfig* pRelease );
 
 private:
 

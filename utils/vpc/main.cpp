@@ -65,6 +65,10 @@ CVPC::CVPC()
 	m_bVerboseMakefile = false;
 	m_bP4SCC = false;
 	m_b32BitTools = false;
+	m_bVSCode = false;
+	m_bCMake = false;
+	m_bCodelite = false;
+	m_bClangdb = false;
 
 #ifdef VPC_SCC_INTEGRATION
 	m_bP4SCC = true;
@@ -644,6 +648,9 @@ void CVPC::SpewUsage( void )
 			Log_Msg( LOG_VPC, "[/windows]:    Generate projects for both Win32 and Win64\n" );
 			Log_Msg( LOG_VPC, "[/unity]:      Enable unity file generation\n" );
 			Log_Msg( LOG_VPC, "[/32bittools]: Specify 32-bit toolchain in VC++ even when compiling 64 bit target\n" );
+			Log_Msg( LOG_VPC, "[/codelite]:   Enable generation of codelite projects\n");
+			Log_Msg( LOG_VPC, "[/cmake]:      Enable generation of cmake projects, for integration with IDEs like CLion and kdevelop\n");
+			Log_Msg( LOG_VPC, "[/clangdb]:    Enable generation of clangdb databases\n");
 
 			Log_Msg( LOG_VPC, "\n--- Help ---\n" );
 			Log_Msg( LOG_VPC, "[/h]:          Help\n" );
@@ -1044,6 +1051,22 @@ void CVPC::HandleSingleCommandLineArg( const char *pArg )
 		{
 			m_bP4SCC = true;
 			m_ExtraOptionsCRCString += pArgName;					// Make sure these options affect the CRC.
+		}
+		else if ( !V_stricmp(pArgName, "codelite"))
+		{
+			m_bCodelite = true;
+		}
+		else if(!V_stricmp(pArgName, "vscode"))
+		{
+			m_bVSCode = true;
+		}
+		else if(!V_stricmp(pArgName, "clangdb"))
+		{
+			m_bClangdb = true;
+		}
+		else if(!V_stricmp(pArgName, "cmake"))
+		{
+			m_bCMake = true;
 		}
 		else
 		{

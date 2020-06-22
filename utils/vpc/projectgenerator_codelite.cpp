@@ -18,10 +18,40 @@ static const char *k_pchHeaders = "Header Files";
 static const char *k_pchResources = "Resources";
 static const char *k_pchVPCFiles = "VPC Files";
 
-void CProjectGenerator_CodeLite::GenerateCodeLiteProject( CBaseProjectDataCollector *pCollector, const char *pOutFilename, const char *pMakefileFilename ) 
+static const char *g_pOption_BufferSecurityCheck = "$BufferSecurityCheck";
+static const char *g_pOption_CustomBuildStepCommandLine = "$CustomBuildStep/$CommandLine";
+static const char *g_pOption_PostBuildEventCommandLine = "$PostBuildEvent/$CommandLine";
+static const char *g_pOption_CompileAs = "$CompileAs";
+static const char *g_pOption_ConfigurationType = "$ConfigurationType";
+static const char *g_pOption_Description = "$Description";
+static const char *g_pOption_EntryPoint = "$EntryPoint";
+static const char *g_pOption_ExtraCompilerFlags = "$GCC_ExtraCompilerFlags";
+static const char *g_pOption_ExtraLinkerFlags = "$GCC_ExtraLinkerFlags";
+static const char *g_pOption_CustomVersionScript = "$GCC_CustomVersionScript";
+static const char *g_pOption_ForceInclude = "$ForceIncludes";
+static const char *g_pOption_IgnoreAllDefaultLibraries = "$IgnoreAllDefaultLibraries";
+static const char *g_pOption_LocalFrameworks = "$LocalFrameworks";
+static const char *g_pOption_LowerCaseFileNames = "$LowerCaseFileNames";
+static const char *g_pOption_OptimizerLevel = "$OptimizerLevel";
+static const char *g_pOption_AdditionalDependencies = "$AdditionalDependencies";
+static const char *g_pOption_Outputs = "$Outputs";
+static const char *g_pOption_PrecompiledHeader = "$Create/UsePrecompiledHeader";
+static const char *g_pOption_PrecompiledHeaderFile = "$PrecompiledHeaderFile";
+static const char *g_pOption_SymbolVisibility = "$SymbolVisibility";
+static const char *g_pOption_SystemFrameworks = "$SystemFrameworks";
+static const char *g_pOption_SystemLibraries = "$SystemLibraries";
+static const char *g_pOption_UsePCHThroughFile = "$Create/UsePCHThroughFile";
+static const char *g_pOption_TargetCopies = "$TargetCopies";
+static const char *g_pOption_TreatWarningsAsErrors = "$TreatWarningsAsErrors";
+
+void CProjectGenerator_CodeLite::GenerateCodeLiteProject( CBaseProjectDataCollector *pCollector, const char *pOutFilename, const char *pMakefileFilename, CSpecificConfig* pDebug, CSpecificConfig* pRelease )
 {
+	if(!g_pVPC->m_bCodelite) return;
+
 	char szProjectFile[MAX_PATH];
 	sprintf( szProjectFile, "%s.project", pOutFilename );
+
+
 
 	g_pVPC->VPCStatus( true, "Saving CodeLite project for: '%s' File: '%s'", pCollector->GetProjectName().String(), szProjectFile );
 
@@ -69,6 +99,24 @@ void CProjectGenerator_CodeLite::GenerateCodeLiteProject( CBaseProjectDataCollec
 				}
 				Write( "</CustomBuild>\n" );
 				--m_nIndent;
+
+				/* Generate include paths and other directives here */
+				CSplitString relIncludes(pDebug->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories),
+				                         const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
+
+				for(int i = 0; i < relIncludes.Count(); i++)
+				{
+					char fixedInc[512];
+					V_strncpy(fixedInc, relIncludes[i], sizeof(fixedInc));
+					V_FixSlashes(fixedInc);
+					Write("<IncludePath Value=\"%s\"/>\n", fixedInc);
+				}
+
+				CSplitString relDefines(pDebug->m_pKV->GetString(g_pOption_PreprocessorDefinitions),
+				                        const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
+
+				for(int i = 0; i < relDefines.Count(); i++)
+					Write("<Preprocessor Value=\"%s\"/>\n", relDefines[i]);
 			}
 			Write( "</Configuration>\n" );
 
@@ -86,6 +134,25 @@ void CProjectGenerator_CodeLite::GenerateCodeLiteProject( CBaseProjectDataCollec
 				}
 				Write( "</CustomBuild>\n" );
 				--m_nIndent;
+
+				/* Generate include paths and other directives here */
+				CSplitString relIncludes(pRelease->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories),
+				                         const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
+
+				for(int i = 0; i < relIncludes.Count(); i++)
+				{
+					char fixedInc[512];
+					V_strncpy(fixedInc, relIncludes[i], sizeof(fixedInc));
+					V_FixSlashes(fixedInc);
+					Write("<IncludePath Value=\"%s\"/>\n", fixedInc);
+				}
+
+				CSplitString relDefines(pRelease->m_pKV->GetString(g_pOption_PreprocessorDefinitions),
+				                        const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
+
+				for(int i = 0; i < relDefines.Count(); i++)
+					Write("<Preprocessor Value=\"%s\"/>\n", relDefines[i]);
+
 			}
 			Write( "</Configuration>\n" );			
 			--m_nIndent;

@@ -63,6 +63,8 @@ static CVSCodeGenerator g_VSCodeGenerator;
 
 void CVSCodeGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator)
 {
+	if(!g_pVPC->m_bVSCode) return;
+	
 	Assert(pRelease);
 	Assert(pDebug);
 

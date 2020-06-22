@@ -187,6 +187,11 @@ enum EVSVersion
 class CVPC
 {
 public:
+	bool                                    m_bCodelite;
+	bool                                    m_bClangdb;
+	bool                                    m_bCMake;
+	bool					m_bVSCode;
+
 	CVPC();
 	~CVPC();
 

@@ -297,7 +297,7 @@ public:
 				fclose( fp );
 
 		/* Execute all solution generators */
-		CLinuxSolutionGenerator::ExecuteSolutionGenerators(pSolutionFilename, projects);		
+		CLinuxSolutionGenerator::ExecuteSolutionGenerators(pSolutionFilename, projects);
 	}
 
 	void ResolveAdditionalProjectDependencies(

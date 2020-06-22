@@ -43,10 +43,8 @@ static bool CheckExtension(const char* file)
 {
 	const char* ext = V_GetFileExtension(file);
 
-	if(strcmp(ext, "cpp") == 0 || strcmp(ext, ".h") == 0 || strcmp(ext, ".cc") == 0 ||
-		strcmp(ext, "hxx") == 0 || strcmp(ext, "c") == 0)
-		return true;
-	return false;
+	return strcmp(ext, "cpp") == 0 || strcmp(ext, ".h") == 0 || strcmp(ext, ".cc") == 0 ||
+	       strcmp(ext, "hxx") == 0 || strcmp(ext, "c") == 0 || strcmp(ext, ".m") == 0;
 }
 
 /* Stolen from the makefile generator */
@@ -73,7 +71,7 @@ static const char *UsePOSIXSlashes(const char *pStr)
 class CCMakeProjectGenerator : public CLinuxProjectGenerator
 {
 public:
-	CCMakeProjectGenerator();
+	CCMakeProjectGenerator() noexcept;
 
 	virtual void Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator);
 };
@@ -81,7 +79,7 @@ public:
 class CCMakeSlnGenerator : public CLinuxSolutionGenerator
 {
 public:
-	CCMakeSlnGenerator();
+	CCMakeSlnGenerator() noexcept;
 
 	virtual void WriteSolution(const char *pSolutionFilename, CUtlVector<CDependency_Project*> &projects);
 };
@@ -95,7 +93,7 @@ PROJECT GENERATOR COMPONENT
 
 */
 
-CCMakeProjectGenerator::CCMakeProjectGenerator() :
+CCMakeProjectGenerator::CCMakeProjectGenerator() noexcept :
 	CLinuxProjectGenerator("cmake")
 {
 
@@ -103,6 +101,8 @@ CCMakeProjectGenerator::CCMakeProjectGenerator() :
 
 void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* pDebug, const char* folder, CBaseProjectDataCollector* generator)
 {
+	if(!g_pVPC->m_bCMake) return;
+	
 	/* Create the filename... */
 	char cmakelists[512];
 	snprintf(cmakelists, 512, "%s/CMakeLists.txt", folder);
@@ -127,7 +127,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 	fprintf(fs, "if(CMAKE_BUILD_TYPE STREQUAL \"Release\")\n");
 	{
 		/* Includes for rel */
-		CSplitString relIncludes(pRelease->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relIncludes(pRelease->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories),
+		                         const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tinclude_directories(");
 		for(int i = 0; i < relIncludes.Count(); i++)
@@ -140,7 +141,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 		fprintf(fs, ")\n");
 
 		/* Defines for rel */
-		CSplitString relDefines(pRelease->m_pKV->GetString(g_pOption_PreprocessorDefinitions), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relDefines(pRelease->m_pKV->GetString(g_pOption_PreprocessorDefinitions),
+		                        const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tadd_definitions(");
 		for(int i = 0; i < relDefines.Count(); i++)
@@ -148,7 +150,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 		fprintf(fs, ")\n");
 		
 		/* Extra flags for rel */
-		CSplitString relFlags(pRelease->m_pKV->GetString(g_pOption_ExtraCompilerFlags), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relFlags(pRelease->m_pKV->GetString(g_pOption_ExtraCompilerFlags),
+		                      const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tset(CMAKE_CXX_FLAGS \"${CMAKE_CXX_FLAGS} ");
 		for(int i = 0; i < relFlags.Count(); i++)
@@ -175,7 +178,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 	fprintf(fs, "else()\n");
 	{
 		/* Includes for rel */
-		CSplitString relIncludes(pDebug->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relIncludes(pDebug->m_pKV->GetString(g_pOption_AdditionalIncludeDirectories),
+		                         const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tinclude_directories(");
 		for(int i = 0; i < relIncludes.Count(); i++)
@@ -188,7 +192,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 		fprintf(fs, ")\n");
 
 		/* Defines for rel */
-		CSplitString relDefines(pDebug->m_pKV->GetString(g_pOption_PreprocessorDefinitions), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relDefines(pDebug->m_pKV->GetString(g_pOption_PreprocessorDefinitions),
+		                        const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tadd_definitions(");
 		for(int i = 0; i < relDefines.Count(); i++)
@@ -196,7 +201,8 @@ void CCMakeProjectGenerator::Write(CSpecificConfig* pRelease, CSpecificConfig* p
 		fprintf(fs, ")\n");
 		
 		/* Extra flags for rel */
-		CSplitString relFlags(pDebug->m_pKV->GetString(g_pOption_ExtraCompilerFlags), g_IncludeSeparators, V_ARRAYSIZE(g_IncludeSeparators));
+		CSplitString relFlags(pDebug->m_pKV->GetString(g_pOption_ExtraCompilerFlags),
+		                      const_cast<const char **>(g_IncludeSeparators), V_ARRAYSIZE(g_IncludeSeparators));
 
 		fprintf(fs, "\tset(CMAKE_CXX_FLAGS \"${CMAKE_CXX_FLAGS} ");
 		for(int i = 0; i < relFlags.Count(); i++)
@@ -234,7 +240,7 @@ SOLUTION GENERATOR COMPONENT
 */
 
 
-CCMakeSlnGenerator::CCMakeSlnGenerator() :
+CCMakeSlnGenerator::CCMakeSlnGenerator() noexcept :
 	CLinuxSolutionGenerator("cmake")
 {
 
@@ -242,6 +248,7 @@ CCMakeSlnGenerator::CCMakeSlnGenerator() :
 
 void CCMakeSlnGenerator::WriteSolution(const char* pSolutionFilename, CUtlVector<CDependency_Project*>& projects)
 {
+	if(!g_pVPC->m_bCMake) return;
 	/**
 	 * Here we will just write the master CMakeLists.txt, which will do two things: contain the base defines found in the makefile_base_posix.mak
 	 * and, use add_subdirectory to add all projects

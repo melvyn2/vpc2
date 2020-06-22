@@ -6,16 +6,25 @@
 
 #include "vpc.h"
 #include "dependencies.h"
+#include "solutiongenerator_linux.h"
 #include "utlgraph.h"
 
-class CSolutionGenerator_CodeLite : public IBaseSolutionGenerator {
+class CSolutionGenerator_CodeLite : public CLinuxSolutionGenerator {
 public:
-	CSolutionGenerator_CodeLite() {
+	CSolutionGenerator_CodeLite() :
+		CLinuxSolutionGenerator("codelite")
+	{
 		m_nIndent = 0;
 		m_fp = NULL;
 	}
 
+	virtual void WriteSolution(const char *pSolutionFilename, CUtlVector<CDependency_Project*> &projects)
+	{
+		this->GenerateSolutionFile(pSolutionFilename, projects);
+	}
+
 	virtual void GenerateSolutionFile( const char *pSolutionFilename, CUtlVector<CDependency_Project*> &projects ) {
+		if(!g_pVPC->m_bCodelite) return;
 		char szSolutionName[MAX_PATH];
 		V_FileBase( pSolutionFilename, szSolutionName, MAX_PATH );
 
@@ -29,6 +38,8 @@ public:
 			pSolutionFilename = szTmpSolutionFilename;
 		} else {
 			V_StripExtension( pSolutionFilename, szSolutionFileBaseName, sizeof( szSolutionFileBaseName ) );
+			V_snprintf(szTmpSolutionFilename, sizeof(szTmpSolutionFilename), "%s.workspace", pSolutionFilename);
+			pSolutionFilename = szTmpSolutionFilename;
 		}
 
 		Msg( "\nWriting CodeLite workspace %s.\n\n", pSolutionFilename );
@@ -85,7 +96,7 @@ public:
 
 		fclose( m_fp );
 
-		WriteBuildOrderProject( szSolutionFileBaseName, projects );
+		//WriteBuildOrderProject( szSolutionFileBaseName, projects );
 	}
 
 	void WriteBuildOrderProject( const char *pszSolutionFileBaseName, CUtlVector<CDependency_Project*> &projects ) {
@@ -278,8 +289,4 @@ public:
 	int m_nIndent;
 };
 
-
-static CSolutionGenerator_CodeLite g_SolutionGenerator_CodeLite;
-IBaseSolutionGenerator* GetSolutionGenerator_CodeLite() {
-	return &g_SolutionGenerator_CodeLite;
-}
+static CSolutionGenerator_CodeLite g_CodeliteGenerator;
