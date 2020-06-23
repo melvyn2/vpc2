@@ -1,4 +1,4 @@
-//====== Copyright © 1996-2005, Valve Corporation, All rights reserved. =======
+//====== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. =======
 //
 // Purpose: 
 //
@@ -113,8 +113,17 @@ public:
 		if ( !fp )
 			g_pVPC->VPCError( "Can't open %s for writing.", pSolutionFilename );
 
-		
-		if ( g_pVPC->Is2015() )
+		if (g_pVPC->Is2019())
+		{			
+			fprintf( fp, "\xef\xbb\xbf\nMicrosoft Visual Studio Solution File, Format Version 12.00\n" ); // still on 12
+			fprintf( fp, "# Visual Studio 2019\n" );
+		}
+		else if(g_pVPC->Is2017())
+		{
+			fprintf( fp, "\xef\xbb\xbf\nMicrosoft Visual Studio Solution File, Format Version 12.00\n" ); // still on 12
+			fprintf( fp, "# Visual Studio 2017\n" );
+		}
+		else if ( g_pVPC->Is2015() )
 		{
 			fprintf( fp, "\xef\xbb\xbf\nMicrosoft Visual Studio Solution File, Format Version 12.00\n" ); // still on 12
 			fprintf( fp, "# Visual Studio 2015\n" );

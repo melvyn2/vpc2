@@ -1011,6 +1011,16 @@ void CVPC::HandleSingleCommandLineArg( const char *pArg )
 			m_eVSVersion = k_EVSVersion_2015;
 			m_ExtraOptionsCRCString += pArgName;
 		}
+		else if(!V_stricmp(pArgName, "2017"))
+		{
+			m_eVSVersion = k_EVSVersion_2017;
+			m_ExtraOptionsCRCString += pArgName;
+		}
+		else if(!V_stricmp(pArgName, "2019"))
+		{
+			m_eVSVersion = k_EVSVersion_2019;
+			m_ExtraOptionsCRCString += pArgName;
+		}
 		else if ( !V_stricmp( pArgName, "nounity" ) )
 		{
 			m_bUseUnity = false;
