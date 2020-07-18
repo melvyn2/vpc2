@@ -3,22 +3,25 @@ compiler: gcc
 dist: xenial
 
 jobs:
-        include:
-                - stage: build
-                  name: "Build for Linux-i386"
-                  os: linux
-                  dist: xenial
-                  addons:
-                          apt:
-                                  packages:
-                                          - gcc
-                                          - g++
-                                          - libc6-dev
-                                          - libc6
-                                          - gcc-multilib
-                                          - g++-multilib
-
-                  script:
-                          - make clean
-                          - make
-
+  include:
+    - stage: build
+      name: "Build for Linux-i386"
+      os: linux
+      dist: xenial
+      addons:
+        apt:
+          packages:
+            - gcc
+            - g++
+            - libc6-dev
+            - libc6
+            - gcc-multilib
+            - g++-multilib
+      script:
+        - make clean
+        - make
+      after_success:
+        - export GITHUB_TOKEN=$GH_TOKEN
+        - cd devtools/bin
+        - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
+        - bash upload.sh vpc_linux
