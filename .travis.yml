@@ -23,6 +23,7 @@ jobs:
         - make install
       after_success:
         - export GITHUB_TOKEN=$GH_TOKEN
+        - UPLOADTOOL_SUFFIX=linux32
         - cd devtools/bin
         - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
         - bash upload.sh vpc_linux
@@ -37,6 +38,7 @@ jobs:
         - MSBuild.exe vpc.sln
         - cd ../..
       after_success:
+        - UPLOADTOOL_SUFFIX=win32
         - export GITHUB_TOKEN=$GH_TOKEN
         - cd utils/vpc/Debug/vpc.exe
         - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
