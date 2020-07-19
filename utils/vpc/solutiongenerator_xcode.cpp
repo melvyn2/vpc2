@@ -10,7 +10,7 @@
 #include "utlsortvector.h"
 #include "checksum_md5.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <direct.h>
 #define mkdir(dir, mode) _mkdir(dir)
 #define getcwd _getcwd
