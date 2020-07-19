@@ -148,6 +148,11 @@ p4 edit ..\..\..\..\devtools\bin\vpc.pdb &amp;&amp; copy /y $(TargetDir)\vpc.pdb
     <ClCompile Include="p4sln.cpp" />
     <ClCompile Include="projectgenerator_codelite.cpp" />
     <ClCompile Include="projectgenerator_makefile.cpp" />
+    <ClCompile Include="projectgenerator_linux.cpp" />
+    <ClCompile Include="projectgenerator_clangdb.cpp" />
+    <ClCompile Include="projectgenerator_cmake.cpp" />
+    <ClCompile Include="projectgenerator_vscode.cpp" />
+    <ClCompile Include="solutiongenerator_linux.cpp" />
     <ClCompile Include="projectgenerator_ps3.cpp" />
     <ClCompile Include="projectgenerator_vcproj.cpp" />
     <ClCompile Include="projectgenerator_win32.cpp" />
