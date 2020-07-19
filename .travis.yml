@@ -38,6 +38,6 @@ jobs:
         - cd ../..
       after_success:
         - export GITHUB_TOKEN=$GH_TOKEN
-        - cd devtools/bin
+        - cd utils/vpc/Debug/vpc.exe
         - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
         - bash upload.sh vpc.exe
