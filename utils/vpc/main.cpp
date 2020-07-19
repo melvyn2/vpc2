@@ -180,14 +180,15 @@ void CVPC::Shutdown( bool bHasError )
 }
 
 #if defined( STANDALONE_VPC )
-class CP4;
-extern CP4 s_p4;
+class CP4 {};
+CP4 s_p4;
 #endif
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 bool CVPC::LoadPerforceInterface()
 {
+        return false;
 	if ( p4 )
 	{
 		// already loaded
