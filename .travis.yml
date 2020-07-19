@@ -29,9 +29,12 @@ jobs:
     - stage: build
       name: "Build for Windows-i386"
       os: windows
+      env:
+        - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
       script:
+        - export PATH="$MSBUILD_PATH:$PATH"
         - cd utils/vpc/
-        - MSBuild vpc.sln
+        - MSBuild.exe vpc.sln
         - cd ../..
       after_success:
         - export GITHUB_TOKEN=$GH_TOKEN
