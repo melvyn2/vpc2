@@ -87,7 +87,7 @@ public:
 				RegCloseKey( hKey );
 			}
 		}
-		g_pVPC->VPCError( "Unable to find RegKey for .vcproj or .vcxproj files in solutions." );
+		// g_pVPC->VPCError( "Unable to find RegKey for .vcproj or .vcxproj files in solutions." );
 	}
 
 	virtual void GenerateSolutionFile( const char *pSolutionFilename, CUtlVector<CDependency_Project*> &projects )
@@ -102,8 +102,9 @@ public:
 
 		Msg( "\nWriting solution file %s.\n\n", pSolutionFilename );
 
-		char szSolutionGUID[256];
-		GetVCPROJSolutionGUID( szSolutionGUID );
+		// char szSolutionGUID[256];
+                const char* szSolutionGUID = "8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942";
+		// GetVCPROJSolutionGUID( szSolutionGUID );
 
 		CUtlVector<CVCProjInfo> vcprojInfos;
 		GetProjectInfos( projects, vcprojInfos );
