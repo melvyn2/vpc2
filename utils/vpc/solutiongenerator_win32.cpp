@@ -29,7 +29,7 @@ public:
 	{
 		HKEY hKey;
 		int firstVer = 8;
-		const int lastVer = 14; // Handle up to VS 14, AKA VS 2015
+		const int lastVer = 17; // Handle up to VS 14, AKA VS 2015
 		if ( g_pVPC->Is2010() )
 		{
 			firstVer = 10;
