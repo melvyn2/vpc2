@@ -90,7 +90,6 @@ p4 edit ..\..\..\..\devtools\bin\vpc.pdb &amp;&amp; copy /y $(TargetDir)\vpc.pdb
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\interfaces\interfaces.cpp" />
-    <ClCompile Include="..\..\p4lib\p4.cpp" />
     <ClCompile Include="..\..\tier0\assert_dialog.cpp" />
     <ClCompile Include="..\..\tier0\commandline.cpp" />
     <ClCompile Include="..\..\tier0\cpu.cpp" />
