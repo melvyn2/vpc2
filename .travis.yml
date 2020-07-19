@@ -40,6 +40,6 @@ jobs:
       after_success:
         - UPLOADTOOL_SUFFIX=win32
         - export GITHUB_TOKEN=$GH_TOKEN
-        - cd utils/vpc/Debug/vpc.exe
+        - cd utils/vpc/Debug/
         - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
         - bash upload.sh vpc.exe
