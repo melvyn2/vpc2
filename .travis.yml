@@ -26,3 +26,15 @@ jobs:
         - cd devtools/bin
         - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
         - bash upload.sh vpc_linux
+    - stage: build
+      name: "Build for Windows-i386"
+      os: windows
+      script:
+        - cd utils/vpc/
+        - msbuild vpc.sln
+        - cd ../..
+      after_success:
+        - export GITHUB_TOKEN=$GH_TOKEN
+        - cd devtools/bin
+        - wget -c https://github.com/FWGS/uploadtool/raw/master/upload.sh
+        - bash upload.sh vpc.exe
