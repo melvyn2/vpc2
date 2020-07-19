@@ -15,10 +15,10 @@
 #define mkdir(dir, mode) _mkdir(dir)
 #define getcwd _getcwd
 #define snprintf _snprintf
-typedef unsigned __int64 uint64_t;
-typedef unsigned __int16 uint16_t;
-typedef unsigned __int8 uint8_t;
-typedef signed __int16 int16_t;
+typedef unsigned long long uint64_t;
+typedef unsigned short uint16_t;
+typedef unsigned char uint8_t;
+typedef signed short int16_t;
 #else
 #include <stdint.h>
 #endif
