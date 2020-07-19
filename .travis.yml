@@ -31,7 +31,7 @@ jobs:
       os: windows
       script:
         - cd utils/vpc/
-        - MSBuild.exe vpc.sln
+        - MSBuild vpc.sln
         - cd ../..
       after_success:
         - export GITHUB_TOKEN=$GH_TOKEN
