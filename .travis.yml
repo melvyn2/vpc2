@@ -2,6 +2,10 @@ language: cpp
 compiler: gcc
 dist: xenial
 
+branches:
+  only:
+    - master
+
 jobs:
   include:
     - stage: build
