@@ -25,8 +25,8 @@ PREFIX?=/usr/local/
 
 ifeq ($(OS),Darwin)
 SDKROOT:=$(shell xcodebuild -sdk macosx -version Path)
-CC:=clang -m32
-CXX:=clang++ -m32
+CC:=clang
+CXX:=clang++
 EXE_POSTFIX:=_osx
 endif
 
@@ -211,8 +211,8 @@ CFLAGS+=-std=c++11
 
 ifeq "$(OS)" "Darwin"
 CFLAGS+=-I$(SDKROOT)/usr/include/malloc
-CFLAGS+= -DOSX -D_OSX
-CFLAGS+= -arch i386 -fasm-blocks
+CFLAGS+= -DOSX -D_OSX -DPLATFORM_64BITS
+#CFLAGS+= -arch i386 -fasm-blocks
 endif
 
 ifeq "$(OS)" "Linux"
@@ -232,12 +232,12 @@ COMPILE=$(CXX) -c $(CFLAGS) -o $@ $<
 LINK=$(CXX) $(CONFIG_DEPENDENT_FLAGS)  -o "$(OUTFILE)" $(OBJS) -ldl -lpthread
 
 ifeq "$(OS)" "Darwin"
-LINK+=-liconv -framework Foundation
+	LINK+=-liconv -framework Foundation
 endif
 
-ifeq "$(OS)" "Darwin"
-LINK+= -arch i386
-endif
+#ifeq "$(OS)" "Darwin"
+#LINK+= -arch i386
+#endif
 
 
 # Build rules
