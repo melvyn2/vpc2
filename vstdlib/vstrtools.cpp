@@ -57,7 +57,7 @@ int V_UTF8ToUnicode( const char *pUTF8, wchar_t *pwchDest, int cubDestSizeInByte
 	size_t nMaxUTF8 = strlen(pUTF8) + 1;
 	char *pIn = (char *)pUTF8;
 	char *pOut = (char *)pwchDest;
-	if ( conv_t > 0 )
+	if ( conv_t != nullptr  )
 	{
 		cchResult = 0;
 		cchResult = iconv( conv_t, &pIn, &nMaxUTF8, &pOut, &nLenUnicde );
@@ -101,7 +101,7 @@ int V_UnicodeToUTF8( const wchar_t *pUnicode, char *pUTF8, int cubDestSizeInByte
 		size_t nMaxUTF8 = cubDestSizeInBytes;
 		char *pIn = (char *)pUnicode;
 		char *pOut = (char *)pUTF8;
-		if ( conv_t > 0 )
+		if ( conv_t != nullptr  )
 		{
 			cchResult = 0;
 			cchResult = iconv( conv_t, &pIn, &nLenUnicde, &pOut, &nMaxUTF8 );
@@ -130,7 +130,7 @@ int V_UCS2ToUnicode( const ucs2 *pUCS2, wchar_t *pUnicode, int cubDestSizeInByte
 {
 	AssertValidWritePtr(pUnicode);
 	AssertValidReadPtr(pUCS2);
-	
+
 	pUnicode[0] = 0;
 #if defined( _WIN32 ) || defined( _PS3 )
 	int lenUCS2 = V_wcslen( pUCS2 );
@@ -143,7 +143,7 @@ int V_UCS2ToUnicode( const ucs2 *pUCS2, wchar_t *pUnicode, int cubDestSizeInByte
 	size_t nMaxUTF8 = cubDestSizeInBytes;
 	char *pIn = (char *)pUCS2;
 	char *pOut = (char *)pUnicode;
-	if ( conv_t > 0 )
+	if ( conv_t != nullptr  )
 	{
 		cchResult = 0;
 		cchResult = iconv( conv_t, &pIn, &nLenUnicde, &pOut, &nMaxUTF8 );
@@ -155,7 +155,7 @@ int V_UCS2ToUnicode( const ucs2 *pUCS2, wchar_t *pUnicode, int cubDestSizeInByte
 	}
 #endif
 	pUnicode[(cubDestSizeInBytes / sizeof(wchar_t)) - 1] = 0;
-	return cchResult;	
+	return cchResult;
 
 }
 
@@ -176,7 +176,7 @@ int V_UnicodeToUCS2( const wchar_t *pUnicode, int cubSrcInBytes, char *pUCS2, in
 	size_t nMaxUCS2 = cubDestSizeInBytes;
 	char *pIn = (char*)pUnicode;
 	char *pOut = pUCS2;
-	if ( conv_t > 0 )
+	if ( conv_t != nullptr  )
 	{
 		cchResult = 0;
 		cchResult = iconv( conv_t, &pIn, &nLenUnicde, &pOut, &nMaxUCS2 );
@@ -187,7 +187,7 @@ int V_UnicodeToUCS2( const wchar_t *pUnicode, int cubSrcInBytes, char *pUCS2, in
 			cchResult = cubSrcInBytes / sizeof( wchar_t );
 	}
 #endif
-	return cchResult;	
+	return cchResult;
 }
 
 // UTF-8 encodes each character (code point) in 1 to 4 octets (8-bit bytes).
@@ -204,7 +204,7 @@ VSTRTOOLS_INTERFACE int V_UCS2ToUTF8( const ucs2 *pUCS2, char *pUTF8, int cubDes
 	AssertValidStringPtr(pUTF8, cubDestSizeInBytes);
 	AssertValidReadPtr(pUCS2);
 	Assert( cubDestSizeInBytes >= 1 ); // must have at least 1 byte to write the terminator character
-	
+
 	pUTF8[0] = '\0';
 #ifdef _WIN32
 	// under win32 wchar_t == ucs2, sigh
@@ -220,7 +220,7 @@ VSTRTOOLS_INTERFACE int V_UCS2ToUTF8( const ucs2 *pUCS2, char *pUTF8, int cubDes
 	size_t nMaxUTF8 = cubDestSizeInBytes;
 	char *pIn = (char *)pUCS2;
 	char *pOut = (char *)pUTF8;
-	if ( conv_t > 0 )
+	if ( conv_t != nullptr  )
 	{
 		cchResult = 0;
 		cchResult = iconv( conv_t, &pIn, &nLenUnicde, &pOut, &nMaxUTF8 );
@@ -232,7 +232,7 @@ VSTRTOOLS_INTERFACE int V_UCS2ToUTF8( const ucs2 *pUCS2, char *pUTF8, int cubDes
 	}
 #endif
 	pUTF8[cubDestSizeInBytes - 1] = '\0';
-	return cchResult;	
+	return cchResult;
 }
 
 
@@ -260,7 +260,7 @@ VSTRTOOLS_INTERFACE int V_UTF8ToUCS2( const char *pUTF8, int cubSrcInBytes, ucs2
 	size_t nMaxUTF8 = cubDestSizeInBytes;
 	char *pIn = (char *)pUTF8;
 	char *pOut = (char *)pUCS2;
-	if ( conv_t > 0 )
+	if ( conv_t != nullptr  )
 	{
 		cchResult = 0;
 		cchResult = iconv( conv_t, &pIn, &nLenUnicde, &pOut, &nMaxUTF8 );

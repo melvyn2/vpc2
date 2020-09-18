@@ -532,7 +532,7 @@ void CVProfile::SumTimes( CVProfNode *pNode, int budgetGroupID )
 			iter = g_TimeSumsMap.find( pNode->GetName() ); // intenionally using address of string rather than string compare (toml 01-27-03)
 			if ( iter == g_TimeSumsMap.end() )
 			{
-				TimeSums_t timeSums = { pNode->GetName(), pNode->GetTotalCalls(), pNode->GetTotalTime(), timeLessChildren, pNode->GetPeakTime() };
+				TimeSums_t timeSums = { pNode->GetName(), uint(pNode->GetTotalCalls()), pNode->GetTotalTime(), timeLessChildren, pNode->GetPeakTime() };
 				g_TimeSumsMap.insert( make_pair( pNode->GetName(), g_TimeSums.size() ) );
 				g_TimeSums.push_back( timeSums );
 			}
