@@ -75,7 +75,7 @@ INLINE_ON_PS3 const char *CThread::GetName()
 #elif defined( _PS3 )
 		snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p)", this );
 #elif defined( POSIX )
-		_snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p/0x%x)", this, (uint)m_threadId );
+		_snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p/0x%x)", this, (uint64_t)m_threadId );
 #endif
 		m_szName[sizeof(m_szName) - 1] = 0;
 	}

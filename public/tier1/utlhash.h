@@ -19,7 +19,7 @@
 #include "commonmacros.h"
 #include "generichash.h"
 
-typedef unsigned int UtlHashHandle_t;
+typedef uint64_t UtlHashHandle_t;
 
 template<class Data, typename C = bool (*)( Data const&, Data const& ), typename K = unsigned int (*)( Data const& ) >
 class CUtlHash
@@ -832,7 +832,7 @@ template<class Data, class HashFuncs> inline bool CUtlHashFast<Data,HashFuncs>::
 // Number of buckets must be a power of 2.
 // Key must be 32-bits (unsigned int).
 //
-typedef int UtlHashFixedHandle_t;
+typedef uint64_t UtlHashFixedHandle_t;
 
 template <int NUM_BUCKETS>
 class CUtlHashFixedGenericHash

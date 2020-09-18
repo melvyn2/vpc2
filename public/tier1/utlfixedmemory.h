@@ -86,7 +86,7 @@ public:
 		if ( !IsValidIterator( it ) )
 			return InvalidIndex();
 
-		return ( int )( HeaderToBlock( it.m_pBlockHeader ) + it.m_nIndex );
+		return ( int64_t )( HeaderToBlock( it.m_pBlockHeader ) + it.m_nIndex );
 	}
 	bool IsIdxAfter( int i, const Iterator_t &it ) const
 	{

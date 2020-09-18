@@ -81,16 +81,18 @@
 	#define NO_STEAM_GAMECOORDINATOR
 
 #else
-
+#ifdef OSX
+    #include <signal.h>
+    #include <malloc/malloc.h>
+#else
 	#include <malloc.h>
+#endif
 	#include <memory.h>
 	#include <limits.h>
 	#include <float.h>
 	#include <stdlib.h>
 	#include <string.h>
-#ifdef OSX
-	#include <signal.h>
-#endif
+
 
 #endif
 
@@ -137,7 +139,7 @@
 #endif // ! ( _PS3 && COMPILER_SNC )
 
 #ifdef __cplusplus
-#if defined( COMPILER_GCC ) || defined( COMPILER_PS3 )
+#if defined( COMPILER_GCC ) || defined( COMPILER_PS3 ) || defined( COMPILER_CLANG )
 	#include <new>
 #else
 	#include <new.h>
@@ -1058,7 +1060,7 @@ PLATFORM_INTERFACE void Plat_MessageBox( const char *pTitle, const tchar *pMessa
 #define _wtoi64(arg) wcstoll(arg, NULL, 10)
 
 #ifndef _PS3
-typedef uint32 HMODULE;
+typedef uint64_t HMODULE;
 #endif
 typedef void *HANDLE;
 #define __cdecl
