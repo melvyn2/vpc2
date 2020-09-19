@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -22,7 +22,7 @@
 #include "tier0/ioctlcodes.h"
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 PME* PME::_singleton = 0;

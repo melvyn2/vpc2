@@ -21,7 +21,7 @@
 #if defined( _X360 )
 #include "xbox/xbox_console.h"
 #endif
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 // Comment this out when we release.

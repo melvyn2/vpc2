@@ -23,3 +23,6 @@
 #undef MEM_OVERRIDE_ON
 
 #endif
+
+void *aligned_malloc( size_t s, size_t a );  // I have no idea why, but this works
+#define _aligned_malloc( s, a ) aligned_malloc( s, a )

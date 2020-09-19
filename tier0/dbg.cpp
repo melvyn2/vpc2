@@ -40,7 +40,7 @@
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #if defined( ENABLE_RUNTIME_STACK_TRANSLATION )
 #pragma optimize( "g", off ) //variable argument functions seem to screw up stack walking unless this optimization is disabled

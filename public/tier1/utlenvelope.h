@@ -110,7 +110,7 @@ private:
 
 //-----------------------------------------------------------------------------
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 inline void CUtlDataEnvelope::Assign( const void *pData, int nBytes )
 {

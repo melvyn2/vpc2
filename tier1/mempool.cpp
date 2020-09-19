@@ -20,7 +20,7 @@
 #endif
 
 // Should be last include
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 MemoryPoolReportFunc_t CUtlMemoryPool::g_ReportFunc = 0;
 

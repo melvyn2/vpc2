@@ -23,7 +23,7 @@
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 static const int MAX_PARAMETER_LEN = 128;

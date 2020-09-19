@@ -60,7 +60,7 @@
 #include <map>
 
 // Must be last header...
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #ifdef _PS3
 #include "ps3/ps3_win32stubs.h"

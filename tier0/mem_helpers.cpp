@@ -12,7 +12,7 @@
 //#include <malloc.h>
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 // Needed for debugging
 const char *g_pszModule = "tier0";

@@ -1,4 +1,4 @@
-//===== Copyright © 2005-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 2005-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: A higher level link library for general use in the game and tools.
 //
@@ -9,7 +9,7 @@
 #include "interfaces/interfaces.h"
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 

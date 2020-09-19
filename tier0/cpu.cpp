@@ -24,7 +24,7 @@
 #endif
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 const tchar* GetProcessorVendorId();
 

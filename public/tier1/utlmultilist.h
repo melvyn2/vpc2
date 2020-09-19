@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: Multiple linked list container class 
 //
@@ -16,7 +16,7 @@
 #include "utllinkedlist.h"
 
 // memdbgon must be the last include file in a .h file!!!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 //-----------------------------------------------------------------------------

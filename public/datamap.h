@@ -17,7 +17,7 @@
 
 #include "tier1/utlvector.h"
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 // SINGLE_INHERITANCE restricts the size of CBaseEntity pointers-to-member-functions to 4 bytes
 class SINGLE_INHERITANCE CBaseEntity;
