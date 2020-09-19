@@ -149,7 +149,7 @@ JustAfew:
     // The low-order two bits of pb and nBuffer in total control the
     // upfront work.
     //
-    nFront = ((uint64_t)pb) & 3;
+    nFront = ((u_int64_t)pb) & 3;
     nBuffer -= nFront;
     switch (nFront)
     {

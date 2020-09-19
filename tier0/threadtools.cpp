@@ -164,9 +164,9 @@ union ThreadProcInfoUnion_t
 		void *		 pParam;
 	}
 	val;
-	uint64_t val64;
+	u_int64_t val64;
 };
-static void ThreadProcConvertUnion( uint64_t param )
+static void ThreadProcConvertUnion( u_int64_t param )
 {
 	COMPILE_TIME_ASSERT( sizeof( ThreadProcInfoUnion_t ) == 8 );
 	ThreadProcInfoUnion_t info;
@@ -2882,9 +2882,9 @@ DWORD WaitForMultipleObjects( DWORD nCount, CThreadEvent **lppHandles, BOOL bWai
 	int numEvent = 0;
 	int eventComplete[ MAXIMUM_WAIT_OBJECTS ] = {0};
 
-	uint64_t timeDiffMS = 0;
-	uint64_t startTimeMS = Plat_MSTime();
-	uint64_t endTimeMS = 0;
+	u_int64_t timeDiffMS = 0;
+	u_int64_t startTimeMS = Plat_MSTime();
+	u_int64_t endTimeMS = 0;
 
 	while ( bRunning )
 	{
@@ -3014,7 +3014,7 @@ DWORD WaitForMultipleObjects( DWORD nCount, CThreadEvent **lppHandles, BOOL bWai
 	{
 		while (numEvent < nCount)
 		{
-			uint64_t deltaTime = Timer_GetTimeUS();
+			u_int64_t deltaTime = Timer_GetTimeUS();
 
 			res = sys_semaphore_wait(gWaitObjectsSemaphore, timeOut == TT_INFINITE ? 0 : timeOut );
 

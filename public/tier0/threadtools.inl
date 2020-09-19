@@ -75,7 +75,7 @@ INLINE_ON_PS3 const char *CThread::GetName()
 #elif defined( _PS3 )
 		snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p)", this );
 #elif defined( POSIX )
-		_snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p/0x%x)", this, (uint64_t)m_threadId );
+		_snprintf( m_szName, sizeof(m_szName) - 1, "Thread(%p/0x%x)", this, (u_int64_t)m_threadId );
 #endif
 		m_szName[sizeof(m_szName) - 1] = 0;
 	}
@@ -156,8 +156,8 @@ INLINE_ON_PS3 bool CThread::Start( unsigned nBytesStack, ThreadPriorityEnum_t nP
 	// allocated after termination of the PPU thread as if memory leaks."
 	const char* threadName=m_szName;
 	if ( sys_ppu_thread_create( &m_threadId, 
-			(void(*)(uint64_t))GetThreadProc(), 
-			(uint64_t)(new ThreadInit_t( init )), 
+			(void(*)(u_int64_t))GetThreadProc(),
+			(u_int64_t)(new ThreadInit_t( init )),
 			nPriority, 
 			nBytesStack, 
 			SYS_PPU_THREAD_CREATE_JOINABLE  , 

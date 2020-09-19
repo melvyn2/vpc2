@@ -15,7 +15,7 @@
 #define mkdir(dir, mode) _mkdir(dir)
 #define getcwd _getcwd
 #define snprintf _snprintf
-typedef unsigned long long uint64_t;
+typedef unsigned long long u_int64_t;
 typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
 typedef unsigned char uint8_t;
@@ -169,7 +169,7 @@ private:
     void XcodeFileTypeFromFileName( const char *pszFileName, char *pchOutBuf, int cchOutBuf );
     void XcodeProductTypeFromFileName( const char *pszFileName, char *pchOutBuf, int cchOutBuf );
     void EmitBuildSettings( const char *pszProjectName, const char *pszProjectDir, CUtlDict<CFileConfig *,int> *pDictFiles, KeyValues *pConfigKV, KeyValues *pReleaseKV, bool bIsDebug );
-    void WriteFilesFolder( uint64_t oid, const char *pFolderName, const char *pExtensions, CBaseProjectDataCollector *pProject );
+    void WriteFilesFolder( u_int64_t oid, const char *pFolderName, const char *pExtensions, CBaseProjectDataCollector *pProject );
 
     void Write( const char *pMsg, ... );
     FILE *m_fp;
@@ -200,7 +200,7 @@ enum EOIDType
 };
 
 // Make an OID from raw data. You probably want makeoid/makeoid2 below.
-uint64_t makeoid_raw( const char *pData, int nDataLen, EOIDType type, int16_t ordinal = 0 )
+u_int64_t makeoid_raw( const char *pData, int nDataLen, EOIDType type, int16_t ordinal = 0 )
 {
     static unsigned int unOIDSalt = 0;
     static bool bOIDSaltSet = false;
@@ -246,7 +246,7 @@ uint64_t makeoid_raw( const char *pData, int nDataLen, EOIDType type, int16_t or
     uint32_t lowerHash = 0;
     memcpy( &lowerHash, hash, sizeof( lowerHash ) );
 
-    uint64_t oid = (uint64_t)lowerHash + ((uint64_t)type << 32) + ((uint64_t)(ordinal+1) << 52);
+    u_int64_t oid = (u_int64_t)lowerHash + ((u_int64_t)type << 32) + ((u_int64_t)(ordinal+1) << 52);
 #ifdef VPC_DEBUG_XCODE_OIDS
     Msg( "XCode Solution: Produced OID 0x%llx for \"%s\" with salt %u\n", oid, pszIdentifier, unOIDSalt );
 #endif
@@ -254,21 +254,21 @@ uint64_t makeoid_raw( const char *pData, int nDataLen, EOIDType type, int16_t or
 }
 
 // Make an oid for a unique string identifier, per type, per ordinal
-uint64_t makeoid( const char *pszIdentifier, EOIDType type, int16_t ordinal = 0 )
+u_int64_t makeoid( const char *pszIdentifier, EOIDType type, int16_t ordinal = 0 )
 {
     CFmtStr oidStr( "oid1.%s", pszIdentifier );
     return makeoid_raw( oidStr.Access(), oidStr.Length(), type, ordinal );
 }
 
 // Make an oid for a unique string tuple, per type, per ordinal
-uint64_t makeoid2( const char *pszIdentifierA, const char *pszIdentifierB, EOIDType type, int16_t ordinal = 0 )
+u_int64_t makeoid2( const char *pszIdentifierA, const char *pszIdentifierB, EOIDType type, int16_t ordinal = 0 )
 {
     CFmtStr oidStr( "oid2.%s.%s", pszIdentifierA, pszIdentifierB );
     return makeoid_raw( oidStr.Access(), oidStr.Length(), type, ordinal );
 }
 
 // Make an oid for a unique string tuple, per type, per ordinal
-uint64_t makeoid3( const char *pszIdentifierA, const char *pszIdentifierB, const char *pszIdentifierC, EOIDType type, int16_t ordinal = 0 )
+u_int64_t makeoid3( const char *pszIdentifierA, const char *pszIdentifierB, const char *pszIdentifierC, EOIDType type, int16_t ordinal = 0 )
 {
     CFmtStr oidStr( "oid3.%s.%s.%s", pszIdentifierA, pszIdentifierB, pszIdentifierC );
     return makeoid_raw( oidStr.Access(), oidStr.Length(), type, ordinal );
@@ -544,7 +544,7 @@ void ResolveAdditionalProjectDependencies( CDependency_Project *pCurProject, CUt
 }
 
 
-void CSolutionGenerator_Xcode::WriteFilesFolder( uint64_t oid, const char *pFolderName, const char *pExtensions, CBaseProjectDataCollector *pProject )
+void CSolutionGenerator_Xcode::WriteFilesFolder( u_int64_t oid, const char *pFolderName, const char *pExtensions, CBaseProjectDataCollector *pProject )
 {
     const CUtlDict<CFileConfig *,int> &files = pProject->m_Files;
 
