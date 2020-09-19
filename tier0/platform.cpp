@@ -46,7 +46,7 @@
 #endif // _PS3
 
 // memdbgon must be the last include file in a .cpp file!!!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #ifdef _WIN32
 static LARGE_INTEGER g_PerformanceFrequency;

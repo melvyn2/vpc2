@@ -2849,7 +2849,7 @@ void *KeyValues::operator new( size_t iAllocSize, int nBlockUse, const char *pFi
 	return p;
 }
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: deallocator

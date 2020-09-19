@@ -1,4 +1,4 @@
-//======= Copyright © 2005, , Valve Corporation, All rights reserved. =========
+//======= Copyright ï¿½ 2005, , Valve Corporation, All rights reserved. =========
 //
 // Purpose: Variant Pearson Hash general purpose hashing algorithm described
 //			by Cargill in C++ Report 1994.  Generates a 16-bit result.
@@ -13,7 +13,7 @@
 #include "tier0/dbg.h"
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 //-----------------------------------------------------------------------------

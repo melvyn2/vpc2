@@ -22,7 +22,7 @@
 #include "tier0/dbg.h"
 #include "memstack.h"
 #include "utlmap.h"
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #ifdef _WIN32
 #pragma warning(disable:4073)

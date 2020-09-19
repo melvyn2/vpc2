@@ -45,7 +45,7 @@
 
 #else // NOT _X360:
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #endif
 

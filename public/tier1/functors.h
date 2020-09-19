@@ -525,7 +525,7 @@ FUNC_GENERATE_ALL( DEFINE_MEMBER_FUNC_PROXY );
 //
 //-----------------------------------------------------------------------------
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 typedef CRefCounted1<CFunctor, CRefCountServiceMT> CFunctorBase;
 

@@ -1,4 +1,4 @@
-//====== Copyright © 1996-2005, Valve Corporation, All rights reserved. =======//
+//====== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. =======//
 //
 // Purpose: A dictionary mapping from symbol to structure 
 //
@@ -19,7 +19,7 @@
 // Include this because tons of code was implicitly getting utlsymbol or utlvector via utldict.h
 #include "tier1/utlsymbol.h"
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 enum EDictCompareType
 {

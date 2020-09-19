@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: Random number generator
 //
@@ -11,7 +11,7 @@
 #include <math.h>
 #include "dbg.h"
 
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 #define IA 16807
 #define IM 2147483647

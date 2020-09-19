@@ -17,7 +17,7 @@
 #include "mem_helpers.h"
 
 // NOTE: This has to be the last file included!
-#include "tier0/memdbgon.h"
+#include "tier0/memdbgoff.h"
 
 
 extern IMemAlloc *g_pActualAlloc;
