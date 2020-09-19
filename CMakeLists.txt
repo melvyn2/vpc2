@@ -1,5 +1,5 @@
 project(VPC2)
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 11)
 
 if(UNIX)
@@ -37,7 +37,7 @@ set(CMAKE_C_FLAGS -w)
 set(CMAKE_CXX_FLAGS -w)
 
 
-if(APPLE)
+if(APPLE OR PLATFORM_64BITS)
     set(CMAKE_THREAD_LIBS_INIT "-lpthread")
     set(CMAKE_HAVE_THREADS_LIBRARY 1)
     set(CMAKE_USE_WIN32_THREADS_INIT 0)
@@ -47,9 +47,11 @@ if(APPLE)
     add_compile_definitions(PLATFORM_64BITS)
     set(CMAKE_C_FLAGS_INIT -arch x86_64 -m64)
     set(CMAKE_CXX_FLAGS_INIT -arch x86_64 -m64)
+    set(CMAKE_EXE_LINKER_FLAGS_INIT -arch x86_64 -m64)
 else()
     set(CMAKE_C_FLAGS_INIT -arch i386 -m32)
     set(CMAKE_CXX_FLAGS_INIT -arch i386 -m32)
+    set(CMAKE_EXE_LINKER_FLAGS_INIT -arch i386 -m32)
 endif()
 
 #add_compile_definitions(USE_LIGHT_MEM_DEBUG)
