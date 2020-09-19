@@ -31,7 +31,7 @@
 #include <vstdlib/vstrtools.h>
 
 // memdbgon must be the last include file in a .cpp file!!!
-#include <tier0/memdbgon.h>
+#include <tier0/memdbgoff.h>
 
 //////// VPROF? //////////////////
 // For an example of how to mark up this file with VPROF nodes, see 
