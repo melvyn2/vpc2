@@ -1060,7 +1060,7 @@ PLATFORM_INTERFACE void Plat_MessageBox( const char *pTitle, const tchar *pMessa
 #define _wtoi64(arg) wcstoll(arg, NULL, 10)
 
 #ifndef _PS3
-typedef uint64_t HMODULE;
+typedef u_int64_t HMODULE;
 #endif
 typedef void *HANDLE;
 #define __cdecl

@@ -1,6 +1,12 @@
 PROJECT(tier0)
 
-add_library(tier0 STATIC
+if(UNIX AND NOT APPLE AND NOT CYGWIN)
+    add_library(tier0 SHARED)
+else()
+    add_library(tier0 STATIC)
+endif()
+
+target_sources(tier0 PUBLIC
         assert_dialog.cpp
         cpu_posix.cpp
         cpu.cpp
