@@ -28,7 +28,7 @@
 #endif
 
 #include "tier0/platform.h"
-#include "../vpccrccheck/crccheck_shared.h"
+#include "crccheck_shared.h"
 
 template< class T, class NullType, int nMax >
 class CSimplePointerStack
