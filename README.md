@@ -1,6 +1,7 @@
 ## VPC2
 
 This is an extended version of VPC based on the Source Engine 2017 leak. This code was pulled from the TF2 branch.
+This fork add macos and 64-bit compatibility, and unfortunately removes linux compatibility.
 
 ## Features
 
