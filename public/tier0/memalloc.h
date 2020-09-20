@@ -616,7 +616,16 @@ struct MemAllocFileLine_t
 //-----------------------------------------------------------------------------
 
 #if !defined(STEAM) && defined(NO_MALLOC_OVERRIDE)
+#ifdef OSX
+#include <malloc/malloc.h>
+#else
 #include <malloc.h>
+#endif
+
+#include <cstdlib>
+#include <tier0/mem.h>
+
+//MEM_INTERFACE IMemAlloc *g_pMemAlloc;
 
 #define MEM_ALLOC_CREDIT_(tag)	((void)0)
 #define MEM_ALLOC_CREDIT()	MEM_ALLOC_CREDIT_(__FILE__)
@@ -633,26 +642,52 @@ struct MemAllocFileLine_t
 #define MemAlloc_RegisterExternalAllocation( tag, p, size ) ((void)0)
 #define MemAlloc_RegisterExternalDeallocation( tag, p, size ) ((void)0)
 
+
+
 inline void *MemAlloc_AllocAligned( size_t size, size_t align )
 {
+#ifdef MSVC
 	return (void *)_aligned_malloc( size, align );
+#elif POSIX
+    void *result = nullptr;
+    posix_memalign(&result, align, size);
+    return result;
+#else
+    #error couldn't find suitible aligned allocator'
+#endif
 }
 inline void *MemAlloc_AllocAligned( size_t size, size_t align, const char *pszFile, int nLine )
 {
 	pszFile = pszFile;
 	nLine = nLine;
-	return (void *)_aligned_malloc( size, align );
+#ifdef MSVC
+    return (void *)_aligned_malloc( size, align );
+#elif POSIX
+    void *result = nullptr;
+    posix_memalign(&result, align, size);
+    return result;
+#else
+#error couldn't find suitible aligned allocator'
+#endif
 }
 
 inline void MemAlloc_FreeAligned( void *pMemBlock )
 {
+#ifdef MSVC
 	_aligned_free( pMemBlock );
+#else
+	free( pMemBlock ) ;
+#endif
 }
 inline void MemAlloc_FreeAligned( void *pMemBlock, const char *pszFile, int nLine )
 {
 	pszFile = pszFile;
 	nLine = nLine;
-	_aligned_free( pMemBlock );
+#ifdef MSVC
+    _aligned_free( pMemBlock );
+#else
+    free( pMemBlock );
+#endif
 }
 
 #endif // !STEAM && NO_MALLOC_OVERRIDE
@@ -663,6 +698,7 @@ inline void MemAlloc_FreeAligned( void *pMemBlock, const char *pszFile, int nLin
 
 // linux memory tracking via hooks.
 #if defined( POSIX ) && !defined( _PS3 )
+#include <tier0/platform.h>
 PLATFORM_INTERFACE void MemoryLogMessage( char const *s );						// throw a message into the memory log
 PLATFORM_INTERFACE void EnableMemoryLogging( bool bOnOff );
 PLATFORM_INTERFACE void DumpMemoryLog( int nThresh );

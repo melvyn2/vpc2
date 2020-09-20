@@ -931,7 +931,7 @@ CUtlMemoryAligned<T, nAlignment>::CUtlMemoryAligned( int nGrowSize, int nInitAll
 	{
 		UTLMEMORY_TRACK_ALLOC();
 		MEM_ALLOC_CREDIT_CLASS();
-		CUtlMemory<T>::m_pMemory = (T*)_aligned_malloc( nInitAllocationCount * sizeof(T), nAlignment );
+		CUtlMemory<T>::m_pMemory = (T*)MemAlloc_AllocAligned( nInitAllocationCount * sizeof(T), nAlignment );
 	}
 }
 
